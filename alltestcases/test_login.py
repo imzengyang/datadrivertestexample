@@ -2,19 +2,20 @@
 
 import unittest
 
+from ddt import ddt,data,unpack,file_data
 from common.create_driver import getDriver
 from common.manage_dir import getPngfileName
 import os
 import time
 
 
+@ddt
 class UserActionTest(unittest.TestCase):
     driver =  getDriver()
 
     def setUp(self):
         self.driver.maximize_window()
         self.driver.get('http://118.31.19.120:3000/')
-
 
     def tearDown(self):
         print(getPngfileName())
@@ -29,11 +30,12 @@ class UserActionTest(unittest.TestCase):
     def tearDownClass(cls):
         cls.driver.quit()
 
-    def test_login(self):
-        
+
+    @data(["testuser3","123456"],["testuser4",""])
+    def test_login(self,userinfo):
         self.driver.find_element_by_link_text('登录').click()
-        self.driver.find_element_by_id('name').send_keys('testuser3')
-        self.driver.find_element_by_id('pass').send_keys('123456')
+        self.driver.find_element_by_id('name').send_keys(userinfo[0])
+        self.driver.find_element_by_id('pass').send_keys(userinfo[1])
         self.driver.find_element_by_id('pass').submit()
         okurl = self.driver.current_url
 
@@ -43,14 +45,14 @@ class UserActionTest(unittest.TestCase):
 
         self.assertEqual(loginName,'testuser3')
 
-    def test_register(self):
-        self.driver.find_element_by_link_text('注册').click()
-        self.driver.get('http://118.31.19.120:3000/signup')
-        self.driver.find_element_by_id('loginname').send_keys('testuser3')
-        self.driver.find_element_by_id('pass').send_keys('123456')
-        self.driver.find_element_by_id('re_pass').send_keys("123456")
-        self.driver.find_element_by_id('email').send_keys('123456@123.com')
-        self.driver.find_element_by_id('pass').submit()
+    # def test_register(self):
+    #     self.driver.find_element_by_link_text('注册').click()
+    #     self.driver.get('http://118.31.19.120:3000/signup')
+    #     self.driver.find_element_by_id('loginname').send_keys('testuser3')
+    #     self.driver.find_element_by_id('pass').send_keys('123456')
+    #     self.driver.find_element_by_id('re_pass').send_keys("123456")
+    #     self.driver.find_element_by_id('email').send_keys('123456@123.com')
+    #     self.driver.find_element_by_id('pass').submit()
         
 
 if __name__ == "__main__":
