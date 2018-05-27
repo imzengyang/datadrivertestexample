@@ -7,6 +7,16 @@ from common.create_driver import getDriver
 from common.manage_dir import getPngfileName
 import os
 import time
+import csv
+
+def get_data_csv(filename):
+    users = []
+    with open(filename,'r') as f:
+        rows = csv.reader(f)
+        next(rows)
+        for row in rows:
+            users.append(row)
+    return users
 
 
 @ddt
@@ -31,18 +41,19 @@ class UserActionTest(unittest.TestCase):
         cls.driver.quit()
 
 
-    @data(["testuser3","123456"],["testuser4",""])
-    def test_login(self,userinfo):
+    @data(*get_data_csv('./testdata/userlogin.csv'))
+    @unpack
+    def test_login(self,username,password,excpetStatus,checkpoint):
+
         self.driver.find_element_by_link_text('登录').click()
-        self.driver.find_element_by_id('name').send_keys(userinfo[0])
-        self.driver.find_element_by_id('pass').send_keys(userinfo[1])
+        self.driver.find_element_by_id('name').send_keys(username)
+        self.driver.find_element_by_id('pass').send_keys(password)
         self.driver.find_element_by_id('pass').submit()
         okurl = self.driver.current_url
 
         self.assertEqual(okurl,'http://118.31.19.120:3000/')
 
         loginName = self.driver.find_element_by_css_selector('#sidebar > div:nth-child(1) > div.inner > div > div > span.user_name > a').text
-
         self.assertEqual(loginName,'testuser3')
 
     # def test_register(self):
