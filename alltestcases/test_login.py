@@ -22,7 +22,7 @@ def get_data_csv(filename):
 @ddt
 class UserActionTest(unittest.TestCase):
     driver =  getDriver()
-
+    
     def setUp(self):
         self.driver.maximize_window()
         self.driver.get('http://118.31.19.120:3000/')
@@ -34,7 +34,7 @@ class UserActionTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        pass   
+        cls.driver
 
     @classmethod
     def tearDownClass(cls):
