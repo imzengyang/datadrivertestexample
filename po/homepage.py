@@ -1,5 +1,5 @@
-from base import BasePage
-from base import InvalidPageException
+from po.base import BasePage
+from po.base import InvalidPageException
 
 class HomePage(BasePage):
     _home_login_link_selector = '登录'
@@ -8,8 +8,8 @@ class HomePage(BasePage):
         super(HomePage, self).__init__(driver)
     
 
-    def gotoLogin_page(self,driver):
-        return driver.find_element_by_link_text(self._home_login_link_selector).click()
+    def gotoLogin_page(self):
+        return self.driver.find_element_by_link_text(self._home_login_link_selector).click()
 
     def _validate_page(self, driver):
         try:

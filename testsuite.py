@@ -1,5 +1,5 @@
 import unittest
-from alltestcases.test_login import UserActionTest
+# from alltestcases.test_login import UserActionTest
 from alltestcases.loginTest import LonginTest
 
 def suite():

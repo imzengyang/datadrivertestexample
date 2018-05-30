@@ -1,6 +1,6 @@
 
-from base import BasePage
-from base import InvalidPageException
+from po.base import BasePage
+from po.base import InvalidPageException
 
 class LoginPage(BasePage):
 
@@ -16,17 +16,17 @@ class LoginPage(BasePage):
         super(LoginPage, self).__init__(driver)
 
     def user_login(self,username,passwd):
-        self.driver.find_element_by_css_selector(self._login_name_selector).sendKeys(username)
-        self.driver.find_element_by_css_selector(self._login_passwd_selector).sendKeys(passwd)
+        self.driver.find_element_by_css_selector(self._login_name_selector).send_keys(username)
+        self.driver.find_element_by_css_selector(self._login_passwd_selector).send_keys(passwd)
         self.driver.find_element_by_css_selector(self._login_btn_selector).click()
 
 
     @property
-    def error_msg(slef):
-        return self.driver.find_element_by_css_selector(self._product_description_locator).text.strip()
+    def error_msg(self):
+        return self.driver.find_element_by_css_selector(self._login_error_msg_selector).text.strip()
 
-    def _validate_page(self, driver):
-        try:
-            driver.find_element_by_css_selector(self._product_view_locator).text 
-        except:
-            raise InvalidPageException('login page not loaded')
+    # def _validate_page(self, driver):
+    #     try:
+    #         driver.find_element_by_css_selector(self._product_view_locator).text 
+    #     except:
+    #         raise InvalidPageException('login page not loaded')

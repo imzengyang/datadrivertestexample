@@ -7,7 +7,7 @@ class BasePage(object):
         self.driver = driver
 
     
-    @abstractmethod
+    @abstractclassmethod
     def _validate_page(self, driver):
         return
 
