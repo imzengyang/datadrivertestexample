@@ -1,6 +1,7 @@
-
+# coding=utf-8
 
 import unittest
+from HTMLReport import AddImage
 
 from ddt import ddt,data,unpack,file_data
 from common.create_driver import getDriver
@@ -11,7 +12,7 @@ import csv
 
 def get_data_csv(filename):
     users = []
-    with open(filename,'r') as f:
+    with open(filename,'r',encoding='UTF-8') as f:
         rows = csv.reader(f)
         next(rows)
         for row in rows:
@@ -23,12 +24,15 @@ def get_data_csv(filename):
 class UserActionTest(unittest.TestCase):
     driver =  getDriver()
     
+    
     def setUp(self):
         self.driver.maximize_window()
         self.driver.get('http://118.31.19.120:3000/')
 
     def tearDown(self):
         print(getPngfileName())
+        base64Img = self.driver.get_screenshot_as_base64()
+        AddImage(base64Img)
         self.driver.save_screenshot(getPngfileName())
         self.driver.delete_all_cookies()
 

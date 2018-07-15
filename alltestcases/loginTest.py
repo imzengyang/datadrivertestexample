@@ -1,4 +1,6 @@
 import unittest
+import base64
+from HTMLReport import AddImage
 
 from po.homepage import HomePage
 from po.loginpage import LoginPage
@@ -14,3 +16,4 @@ class LonginTest(BaseTestCase):
         loginpg.user_login("xxxxxx",'ssssssss')
         
         self.assertEquals(loginpg.error_msg,"用户名或密码错误")
+

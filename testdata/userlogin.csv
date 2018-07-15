@@ -1,4 +1,4 @@
-username,passwd,excpetStatus,checkpoint
+﻿username,passwd,excpetStatus,checkpoint
 testuser3,123456,sucess,testuser3
 testuser3,,fail,信息不完整。
 ,123456,fail,信息不完整。
